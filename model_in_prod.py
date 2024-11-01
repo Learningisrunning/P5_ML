@@ -4,32 +4,29 @@ import ssl
 import spacy
 import re
 from collections import Counter
-
+from kedro.pipeline import Pipeline, node
 #Data Cleaning: 
 
 #Data getting:
 df = pd.read_csv("data_from_stackoverflow.csv", sep=",")
 
-
-
-#Set up : 
-nltk.data.path.append('/Users/tomdumerle/nltk_data')
-
 # Ignorer les erreurs de certificat
 ssl._create_default_https_context = ssl._create_unverified_context
 
-# Télécharger les stopwords
-nltk.download('stopwords')
 
-nlp = spacy.load('en_core_web_sm')
+def setup_nltk():
+    nltk.data.path.append('/Users/tomdumerle/nltk_data')
+    nltk.download('stopwords')
 
+def setup_spacy() -> spacy.language.Language:
+    return spacy.load('en_core_web_sm')
 
 # création de la liste de base des stop words 
 liste_default_stopwords = nltk.corpus.stopwords.words("english")
 
 
 # création de la fonction le prétaitement du text
-def preprocess_text(text):
+def preprocess_text(text, nlp):
     #Suppression de la ponctuation et des caractères spéciaux: 
     text = re.sub(r'[^a-zA-Z\s]', '', text)
     # Convertir en minuscules
@@ -77,8 +74,7 @@ def get_custom_stopwords(df, n=5):
 
     # Retourner les n mots les plus fréquents
     return freq_total.most_common(n)
-
-custom_stopwords = get_custom_stopwords(df, n=5)
+    
 
 def get_the_complit_stop_word_list(df, liste_of_custom_stopwords):
     liste_of_custom_stopwords = [words[0] for words in liste_of_custom_stopwords ]
@@ -93,8 +89,6 @@ def get_the_complit_stop_word_list(df, liste_of_custom_stopwords):
 
     return df
 
-df_without_SW = get_the_complit_stop_word_list(df,custom_stopwords)
-
 
 #Fonction de réduction de dimension des tags
 
@@ -106,4 +100,50 @@ def tag_dimension_reduction(colonne_tags, freq_min):
 
     return df[colonne_tags]
 
+#Mise en place de la pipeline pour le pré traitement du text : 
 
+def load_data(url) -> pd.DataFrame:
+    return pd.read_csv(url)  # Chemin en brut ici
+
+
+def run_pipeline_data_cleaning(url) -> pd.DataFrame:
+
+    df = load_data(url)
+    setup_nltk()
+    nlp = setup_spacy()
+    default_stopwords = nltk.corpus.stopwords.words("english")
+
+    df["Title_tokenized"] = df["Title"].apply(lambda x: preprocess_text(x, nlp, default_stopwords))
+    df["Body_tokenized"] = df["Body"].apply(lambda x: preprocess_text(x, nlp, default_stopwords))
+
+    df = process_tags_dataframe(df)
+
+    custom_stopwords = get_custom_stopwords(df, n=5)
+
+    df = get_the_complit_stop_word_list(df, custom_stopwords)
+
+    df["tags_liste"] = tag_dimension_reduction(df, "tags_liste", freq_min=100)
+
+    return df
+
+
+
+
+
+def create_pipeline(**kwargs) -> Pipeline:
+    return Pipeline(
+        [
+            node(
+                func=load_data,
+                inputs=None,  # Pas d'entrée ici car on charge directement le fichier
+                outputs="raw_data",  # Sortie à utiliser par la suite
+                name="load_data_node",
+            ),
+            node(
+                func=run_pipeline_data_cleaning,
+                inputs="raw_data",  # Utilise le DataFrame chargé par le premier node
+                outputs="processed_data",  # Sortie du traitement
+                name="data_processing_node",
+            ),
+        ]
+    )
