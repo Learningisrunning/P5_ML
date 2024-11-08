@@ -117,7 +117,7 @@ def tag_dimension_reduction(df, colonne_tags, freq_min):
 #Mise en place de la pipeline pour le pré traitement du text : 
 
 def load_data(url) -> pd.DataFrame:
-    return pd.read_csv(url)  # Chemin en brut ici
+    return pd.read_csv(url, sep=",")  # Chemin en brut ici
 
 
 def run_pipeline_data_cleaning(url) -> pd.DataFrame:
@@ -169,12 +169,6 @@ def preprocess_for_bow(df):
     )
     return df
 
-def last_processing_for_BoW(df, save_name):
-    df["tags"] = df["tags_liste"]
-    df = df.dropna()
-    df.to_csv(save_name, index=False)
-
-
 
 def pipeline_transformation_to_BoW(df, df_name):
 
@@ -188,7 +182,9 @@ def pipeline_transformation_to_BoW(df, df_name):
 
     df_boW_vf = BoW_traitement.to_dataframe(X_transform)
 
-    last_processing_for_BoW(df_boW_vf, df_name) 
+    df["tags"] = df["tags_liste"]
+
+    return df_boW_vf
     
 
 #Mise en place du ML:
@@ -233,6 +229,7 @@ def MultinomialNB_BoW_predict(df_test):
     return y_pred, y_test
 
 def accuracy(y_pred, y_test):
+
     # Binarisation des données
     mlb = MultiLabelBinarizer()
     y_test_bin = mlb.fit_transform(y_test)
@@ -260,18 +257,24 @@ def accuracy(y_pred, y_test):
 
     data_score = pd.DataFrame(data, index=[0])
 
+    # Convertir le DataFrame en dictionnaire
+    metrics_dict = data_score.to_dict(orient='records')[0]  # 'records' permet d'obtenir une liste de dictionnaires
+
+    # Enregistrer toutes les métriques dans MLflow
+    mlflow.log_metrics(metrics_dict)
+
     return data_score
 
 
 
 
-def training_pipeline(**kwargs) -> Pipeline:
-    return Pipeline(
+def training_pipeline() -> Pipeline:
+    return pipeline(
         [
             node(
                 func=load_data,
-                inputs=None,  
-                outputs="raw_data",  
+                inputs="params:url",
+                outputs="raw_data",
                 name="load_data_node",
             ),
             node(
@@ -282,8 +285,8 @@ def training_pipeline(**kwargs) -> Pipeline:
             ),
             node(
                 func=run_pipeline_data_cleaning,
-                inputs="df_train",  
-                outputs="processed_data_train",  
+                inputs="df_train",
+                outputs="processed_data_train",
                 name="data_cleaning_train_node",
             ),
             node(
@@ -293,8 +296,8 @@ def training_pipeline(**kwargs) -> Pipeline:
                 name="BoW_transformation_train_node",
             ),
             node(
-                func=train_model,  # Fonction d'entraînement du modèle
-                inputs="processed_data_boW_train",  
+                func=MultinomialNB_BoW_train,
+                inputs="processed_data_boW_train",
                 outputs="trained_model",
                 name="train_model_node",
             ),
@@ -302,8 +305,8 @@ def training_pipeline(**kwargs) -> Pipeline:
     )
 
 
-def prediction_pipeline(**kwargs) -> Pipeline:
-    return Pipeline(
+def prediction_pipeline() -> Pipeline:
+    return pipeline(
         [
             node(
                 func=run_pipeline_data_cleaning,
@@ -318,10 +321,16 @@ def prediction_pipeline(**kwargs) -> Pipeline:
                 name="BoW_transformation_test_node",
             ),
             node(
-                func=predict_model,  # Fonction pour faire les prédictions
+                func=MultinomialNB_BoW_predict,
                 inputs=["trained_model", "processed_data_boW_test"],
-                outputs="predictions",
+                outputs=["prediction", "test_set"],
                 name="predict_model_node",
+            ),
+            node(
+                func=accuracy,
+                inputs=["prediction", "test_set"],
+                outputs="accuracy_score",
+                name="accuracy_node",
             ),
         ]
     )
