@@ -207,7 +207,7 @@ def MultinomialNB_BoW_train(df_train):
     mlflow.sklearn.log_model(pipeline_multinomialNB, "MultinomialNB_BoW")
 
     model_name = "MultinomialNB_BoW"
-    run_id = mlflow.active_run().info.run_id  # Utiliser le run_id de l'expérience en cours
+    run_id = mlflow.active_run().info.run_id  # Utilisation le run_id de l'expérience en cours
 
     # Ajout dans le Model Registry
     mlflow.register_model(f"runs:/{run_id}/MultinomialNB_BoW", model_name)
