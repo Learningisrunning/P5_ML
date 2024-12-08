@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/45bc31cb1a8648cf82d851a5d4cb758d/artifacts
+end_time: 1733499931476
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 45bc31cb1a8648cf82d851a5d4cb758d
+run_name: orderly-stag-416
+run_uuid: 45bc31cb1a8648cf82d851a5d4cb758d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733499931470
+status: 3
+tags: []
+user_id: tomdumerle

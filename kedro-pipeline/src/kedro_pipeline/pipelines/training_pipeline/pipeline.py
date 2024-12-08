@@ -33,13 +33,13 @@ def create_pipeline() -> Pipeline:
             node(
                 func=pipeline_transformation_to_BoW,
                 inputs="processed_data_train",
-                outputs="processed_data_boW_train",
+                outputs=["processed_data_boW_train", "BoW_traitement"],
                 name="BoW_transformation_train_node",
             ),
             node(
                 func=MultinomialNB_BoW_train,
                 inputs="processed_data_boW_train",
-                outputs="trained_model",
+                outputs=["trained_model", "mlb"],
                 name="train_model_node",
             ),
         ]

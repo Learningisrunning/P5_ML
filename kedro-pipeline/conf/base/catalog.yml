@@ -1,3 +1,21 @@
 data_set_from_stack:
   type: pandas.CSVDataset
   filepath: /Users/tomdumerle/Desktop/OC-Machine_learning/p5/data_from_stackoverflow.csv
+
+mlb: 
+  type: pickle.PickleDataset
+  filepath: P5/mlb.pkl
+
+BoW_traitement: 
+  type: pickle.PickleDataset
+  filepath: P5/BoW_traitement.pkl
+
+trained_model:
+  type: pickle.PickleDataset
+  filepath: P5/pipeline_multinomialNB.pkl
+
+df_test:
+  type: pandas.CSVDataset
+  filepath: P5/test_set.csv
+
+  

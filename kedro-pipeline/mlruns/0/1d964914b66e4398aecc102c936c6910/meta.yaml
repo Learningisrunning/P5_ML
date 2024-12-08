@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/1d964914b66e4398aecc102c936c6910/artifacts
+end_time: 1733494519675
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 1d964914b66e4398aecc102c936c6910
+run_name: awesome-mink-386
+run_uuid: 1d964914b66e4398aecc102c936c6910
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733494506680
+status: 3
+tags: []
+user_id: tomdumerle

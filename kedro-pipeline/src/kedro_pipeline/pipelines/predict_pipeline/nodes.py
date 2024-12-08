@@ -27,7 +27,6 @@ def split_data(df):
 # Ignorer les erreurs de certificat
 ssl._create_default_https_context = ssl._create_unverified_context
 
-
 def setup_nltk():
     nltk.data.path.append('/Users/tomdumerle/nltk_data')
     nltk.download('stopwords')
@@ -37,7 +36,6 @@ def setup_spacy() -> spacy.language.Language:
 
 # création de la liste de base des stop words 
 liste_default_stopwords = nltk.corpus.stopwords.words("english")
-
 
 # création de la fonction le prétaitement du text
 def preprocess_text(text, nlp, liste_default_SW):
@@ -116,13 +114,12 @@ def tag_dimension_reduction(df, colonne_tags, freq_min):
 
 #Mise en place de la pipeline pour le pré traitement du text : 
 
-def load_data(data) -> pd.DataFrame:
-    return pd.read_csv(data, sep=",")  # Chemin en brut ici
-
+def load_data(data: pd.DataFrame) -> pd.DataFrame:
+    return data
 
 def run_pipeline_data_cleaning(data) -> pd.DataFrame:
 
-    df = load_data(data)
+    df = data
     setup_nltk()
     nlp = setup_spacy()
     default_stopwords = nltk.corpus.stopwords.words("english")
@@ -170,65 +167,35 @@ def preprocess_for_bow(df):
     return df
 
 
-def pipeline_transformation_to_BoW(df):
+def pipeline_transformation_to_BoW(df, BoW_traitement):
 
     df_boW = preprocess_for_bow(df)
-
-    BoW_traitement = BoWTransformer(max_features=1000)
-
-    X_fit = BoW_traitement.fit(df_boW["Title_tokenized_for_BoW"])
 
     X_transform = BoW_traitement.transform(df_boW["Title_and_body_tokenized_for_BoW"])
 
     df_boW_vf = BoW_traitement.to_dataframe(X_transform)
 
-    df["tags"] = df["tags_liste"]
+    df_boW_vf["tags"] = df["tags_liste"]
+
+    df_boW_vf.dropna(inplace=True)
 
     return df_boW_vf
     
-
-#Mise en place du ML:
-
-def MultinomialNB_BoW_train(df_train):
-    mlflow.set_tracking_uri("http://127.0.0.1:5000")
-
-    mlflow.start_run()
-
-    X_train = df_train.drop("tags", axis = 1)
-    y_train = df_train["tags"]
-
-    pipeline_multinomialNB = Pipeline([
-        ('model', MultinomialNB())
-        ])
-
-    pipeline_multinomialNB.fit(X_train, y_train)
-
-
-    mlflow.sklearn.log_model(pipeline_multinomialNB, "MultinomialNB_BoW")
-
-    model_name = "MultinomialNB_BoW"
-    run_id = mlflow.active_run().info.run_id  # Utilisation le run_id de l'expérience en cours
-
-    # Ajout dans le Model Registry
-    mlflow.register_model(f"runs:/{run_id}/MultinomialNB_BoW", model_name)
-
-    return pipeline_multinomialNB
-
-
-
-def MultinomialNB_BoW_predict(model, df_test):
+def MultinomialNB_BoW_predict(model, df_test, mlb):
 
     X_test = df_test.drop("tags", axis = 1)
     y_test = df_test["tags"]
+
     # Prédiction
     y_pred = model.predict(X_test)
+    y_pred = mlb.inverse_transform(y_pred)
 
     return y_pred, y_test
 
-def accuracy(y_pred, y_test):
+def accuracy(y_pred, y_test, mlb):
 
     # Binarisation des données
-    mlb = MultiLabelBinarizer()
+    #mlb = MultiLabelBinarizer()
     y_test_bin = mlb.fit_transform(y_test)
     y_pred_bin = mlb.transform(y_pred)
 

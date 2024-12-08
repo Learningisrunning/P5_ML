@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/b4ed56b875bc471d8a28017077776e43/artifacts
+end_time: 1733509540955
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: b4ed56b875bc471d8a28017077776e43
+run_name: beautiful-conch-240
+run_uuid: b4ed56b875bc471d8a28017077776e43
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733509540949
+status: 3
+tags: []
+user_id: tomdumerle

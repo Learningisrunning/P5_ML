@@ -16,6 +16,7 @@ from sklearn.metrics import jaccard_score
 from sklearn.metrics import recall_score
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.pipeline import Pipeline
+from sklearn.multiclass import OneVsRestClassifier
 
 
 
@@ -182,9 +183,11 @@ def pipeline_transformation_to_BoW(df):
 
     df_boW_vf = BoW_traitement.to_dataframe(X_transform)
 
-    df["tags"] = df["tags_liste"]
+    df_boW_vf["tags"] = df["tags_liste"]
 
-    return df_boW_vf
+    df_boW_vf.dropna(inplace=True)
+
+    return df_boW_vf, BoW_traitement
     
 
 #Mise en place du ML:
@@ -198,10 +201,14 @@ def MultinomialNB_BoW_train(df_train):
     y_train = df_train["tags"]
 
     pipeline_multinomialNB = Pipeline([
-        ('model', MultinomialNB())
+        ('model', OneVsRestClassifier(MultinomialNB()))
         ])
 
-    pipeline_multinomialNB.fit(X_train, y_train)
+    # Étape 1: Binarisation des étiquettes
+    mlb = MultiLabelBinarizer()
+    y_train_bin = mlb.fit_transform(y_train)
+
+    pipeline_multinomialNB.fit(X_train, y_train_bin)
 
 
     mlflow.sklearn.log_model(pipeline_multinomialNB, "MultinomialNB_BoW")
@@ -212,17 +219,17 @@ def MultinomialNB_BoW_train(df_train):
     # Ajout dans le Model Registry
     mlflow.register_model(f"runs:/{run_id}/MultinomialNB_BoW", model_name)
 
-    return pipeline_multinomialNB
+    return pipeline_multinomialNB, mlb
 
 
 
-def MultinomialNB_BoW_predict(model, df_test):
+def MultinomialNB_BoW_predict(model, df_test, mlb):
 
     X_test = df_test.drop("tags", axis = 1)
     y_test = df_test["tags"]
     # Prédiction
     y_pred = model.predict(X_test)
-
+    y_pred = mlb.inverse_transform(y_pred)
     return y_pred, y_test
 
 def accuracy(y_pred, y_test):

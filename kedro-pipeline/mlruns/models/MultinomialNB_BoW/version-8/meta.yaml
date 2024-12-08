@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1733509316410
+current_stage: None
+description: ''
+last_updated_timestamp: 1733509316410
+name: MultinomialNB_BoW
+run_id: b6d22697117d42d59d78820eeba0b25a
+run_link: ''
+source: mlflow-artifacts:/0/b6d22697117d42d59d78820eeba0b25a/artifacts/MultinomialNB_BoW
+status: READY
+status_message: null
+storage_location: mlflow-artifacts:/0/b6d22697117d42d59d78820eeba0b25a/artifacts/MultinomialNB_BoW
+user_id: null
+version: 8
