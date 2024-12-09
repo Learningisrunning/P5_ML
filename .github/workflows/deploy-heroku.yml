@@ -1,4 +1,4 @@
-name: Deploy to Heroku - 2.0
+name: Deploy
 
 on:
   push:
@@ -6,34 +6,12 @@ on:
       - main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
+  build:
+    runs-on: ubuntu-22.04
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0 # Désactive le mode shallow clone
-
-    - name: Unshallow the repository
-      run: git fetch --unshallow
-
-    - name: Setup Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.9
-
-    - name: Install dependencies
-      run: pip install -r requirements.txt
-
-    - name: Login to Heroku
-      env:
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku auth:whoami
-
-    - name: Set Heroku remote
-      run: |
-        git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/tags-prediction.git || true
-
-    - name: Deploy to Heroku
-      run: git push heroku HEAD:main
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.13.15 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "tags-prediction" #Must be unique in Heroku
+          heroku_email: "tom.dumerle@gmail.com"
