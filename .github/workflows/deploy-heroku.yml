@@ -26,5 +26,5 @@ jobs:
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: |
-        heroku git:remote -a <tags-prediction>
+        heroku git:remote -a tags-prediction
         git push heroku main
