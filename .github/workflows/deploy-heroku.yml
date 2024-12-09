@@ -22,11 +22,11 @@ jobs:
       run: |
         pip install -r requirements.txt  # Pour Python
 
-    - name: Debug Heroku CLI
-      run: |
-        heroku --version
-        heroku auth:whoami
-        heroku apps:info -a tags-prediction
+    - name: Login to Heroku
+      env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      run: heroku auth:token
+           echo $HEROKU_API_KEY | heroku auth:token
 
     - name: Deploy to Heroku
       env:
