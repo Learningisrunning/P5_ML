@@ -18,12 +18,6 @@ from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.pipeline import Pipeline
 
 
-#Data Spliting: 
-def split_data(df):
-    df_train, df_test = train_test_split(df, test_size=0.2, random_state=42)
-    return df_train, df_test
-#Data Cleaning: 
-
 # Ignorer les erreurs de certificat
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -47,20 +41,6 @@ def preprocess_text(text, nlp, liste_default_SW):
     doc = nlp(text)
     tokens = [token.lemma_ for token in doc if token.is_alpha and token.lemma_ not in liste_default_SW]
     return tokens
-
-
-#split des tags en liste
-def process_tags_dataframe(df):
-    """Récupération de la colonne tags, séparation en liste et remise en place dans le df original"""
-    def split_in_list_text(text):
-        tags = text.replace("<", "").split('>')
-        return list(filter(None, tags))
-
-    # Appliquer la fonction de transformation sur la colonne 'Tags'
-    df["tags_liste"] = df["Tags"].apply(split_in_list_text)
-
-    # Sélectionner uniquement les colonnes souhaitées
-    return df[["Title_tokenized", "Body_tokenized", "tags_liste"]]
 
 
 def get_custom_stopwords(df, n=5):
@@ -101,25 +81,20 @@ def get_the_complit_stop_word_list(df, liste_of_custom_stopwords):
 
     return df
 
-
-#Fonction de réduction de dimension des tags
-
-def tag_dimension_reduction(df, colonne_tags, freq_min): 
-    all_tags = df[colonne_tags].sum()
-    words_frequences = Counter(all_tags)
-    liste_tags_to_keep = {mot for mot, freq in words_frequences.items() if freq >=freq_min}
-    df[colonne_tags] = df[colonne_tags].apply(lambda liste : [mot for mot in liste if mot in liste_tags_to_keep])
-
-    return df[colonne_tags]
-
 #Mise en place de la pipeline pour le pré traitement du text : 
 
 def load_data(data: pd.DataFrame) -> pd.DataFrame:
     return data
 
-def run_pipeline_data_cleaning(data) -> pd.DataFrame:
+def run_pipeline_data_cleaning(data, data_user) -> pd.DataFrame:
 
     df = data
+    df = df[["Title", "Body"]]
+    df = df.iloc[:3]
+
+    df.loc[3] = [data_user.iloc[0]["Title"], data_user.iloc[0]["Body"]]
+
+    df.reset_index(drop=True, inplace=True)
     setup_nltk()
     nlp = setup_spacy()
     default_stopwords = nltk.corpus.stopwords.words("english")
@@ -127,13 +102,9 @@ def run_pipeline_data_cleaning(data) -> pd.DataFrame:
     df["Title_tokenized"] = df["Title"].apply(lambda x: preprocess_text(x, nlp, default_stopwords))
     df["Body_tokenized"] = df["Body"].apply(lambda x: preprocess_text(x, nlp, default_stopwords))
 
-    df = process_tags_dataframe(df)
-
     custom_stopwords = get_custom_stopwords(df, n=5)
 
     df = get_the_complit_stop_word_list(df, custom_stopwords)
-
-    df["tags_liste"] = tag_dimension_reduction(df, "tags_liste", freq_min=100)
 
     return df
 
@@ -170,29 +141,23 @@ def preprocess_for_bow(df):
 def pipeline_transformation_to_BoW(df, BoW_traitement):
 
     df_boW = preprocess_for_bow(df)
-
     X_transform = BoW_traitement.transform(df_boW["Title_and_body_tokenized_for_BoW"])
-
     df_boW_vf = BoW_traitement.to_dataframe(X_transform)
-
-    df_boW_vf["tags"] = df["tags_liste"]
-
+    
     df_boW_vf.dropna(inplace=True)
 
     return df_boW_vf
     
 def MultinomialNB_BoW_predict(model, df_test, mlb):
 
-    X_test = df_test.drop("tags", axis = 1)
-    y_test = df_test["tags"]
-
+    X_test = df_test
     # Prédiction
     y_pred = model.predict(X_test)
     y_pred = mlb.inverse_transform(y_pred)
+    y_pred = y_pred[3]
+    return y_pred
 
-    return y_pred, y_test
-
-def accuracy(y_pred, y_test, mlb):
+#def accuracy(y_pred, y_test, mlb):
 
     # Binarisation des données
     #mlb = MultiLabelBinarizer()

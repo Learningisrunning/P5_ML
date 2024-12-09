@@ -18,4 +18,8 @@ df_test:
   type: pandas.CSVDataset
   filepath: P5/test_set.csv
 
+input_data:
+  type: pandas.CSVDataset
+  filepath: "input.csv"
+
   

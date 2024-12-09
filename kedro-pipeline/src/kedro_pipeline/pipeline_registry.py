@@ -17,7 +17,7 @@ def register_pipelines() -> Dict[str, Pipeline]:
 
     return {
         "tp": training_pipeline,
-        "pp": predict_pipeline,
+        "predict_pipeline": predict_pipeline,
         "dd": data_drift,
         "__default__": training_pipeline + predict_pipeline + data_drift
     }

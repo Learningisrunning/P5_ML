@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/701b0160bd1248cba59275d24bc14d8a/artifacts
+end_time: 1733679816313
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 701b0160bd1248cba59275d24bc14d8a
+run_name: thundering-toad-555
+run_uuid: 701b0160bd1248cba59275d24bc14d8a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1733679803012
+status: 3
+tags: []
+user_id: tomdumerle
