@@ -3,7 +3,7 @@ name: Deploy to Heroku
 on:
   push:
     branches:
-      - main  # Déployez uniquement lors de push sur la branche principale 
+      - main
 
 jobs:
   deploy:
@@ -13,25 +13,25 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Setup Python #car Projet python
+    - name: Setup Python
       uses: actions/setup-python@v4
       with:
         python-version: 3.9
 
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt  # Pour Python
+        pip install -r requirements.txt
 
-   - name: Login to Heroku
+    - name: Login to Heroku
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: |
-        echo $HEROKU_API_KEY | heroku auth:token
+        heroku auth:token
         heroku auth:whoami
 
     - name: Deploy to Heroku
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: |
-        heroku git:remote -a tags-prediction
-        git push heroku main
+        git remote add heroku https://git.heroku.com/tags-prediction.git
+        git push heroku main --force
