@@ -22,16 +22,21 @@ jobs:
       run: |
         pip install -r requirements.txt
 
+    - name: Install Heroku CLI
+      run: |
+        curl https://cli-assets.heroku.com/install.sh | sh
+
     - name: Login to Heroku
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: |
-        heroku auth:token
         heroku auth:whoami
 
-   -  name: Set Heroku remote
+    - name: Set Heroku remote
       run: |
         git remote remove heroku || true
         git remote add heroku https://git.heroku.com/tags-prediction.git
+
     - name: Deploy to Heroku
-      run: git push heroku main
+      run: |
+        git push heroku main --force
