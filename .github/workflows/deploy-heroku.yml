@@ -29,7 +29,7 @@ jobs:
         heroku auth:token
         heroku auth:whoami
 
-    - name: Deploy to Heroku
+    - name: Deploy to Heroku - with API KEY 
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: |
