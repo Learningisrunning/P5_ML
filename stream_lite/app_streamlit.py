@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 #Front of the API
-API_URL = "http://127.0.0.1:8000/predict"
+API_URL = "https://tags-prediction-2a1cfec639e1.herokuapp.com/predict"
 
 st.title("Prédiction des Tags - Interface API")
 
