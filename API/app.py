@@ -3,6 +3,10 @@ from pydantic import BaseModel
 import pandas as pd
 from kedro.framework.session import KedroSession
 from kedro.framework.startup import bootstrap_project
+#test to understand where it start : 
+
+import os
+print("Répertoire courant :", os.getcwd())
 
 # Initialiser le projet Kedro
 PROJECT_PATH = "production/pyproject.toml"
