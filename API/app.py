@@ -3,11 +3,15 @@ from pydantic import BaseModel
 import pandas as pd
 from kedro.framework.session import KedroSession
 from kedro.framework.startup import bootstrap_project
+import subprocess
+import threading
 
 # Initialiser le projet Kedro
 PROJECT_PATH = "/app/kedro-pipeline"
 bootstrap_project(PROJECT_PATH)
 
+def run_streamlit():
+    subprocess.run(["streamlit", "run", "stream_lite.app_streamlit.py", "--server.port=8501", "--server.enableCORS=false"])
 
 # Modèle pour les données d'entrée
 class PredictionInput(BaseModel):
@@ -19,6 +23,11 @@ app = FastAPI()
 
 # Initialiser KedroSession au démarrage
 session = KedroSession.create(project_path=PROJECT_PATH)
+
+@app.lifespan("startup")
+def startup_event():
+    thread = threading.Thread(target=run_streamlit)
+    thread.start()
 
 @app.post("/predict")
 def predict(input: PredictionInput):
