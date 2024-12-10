@@ -5,8 +5,9 @@ from kedro.framework.session import KedroSession
 from kedro.framework.startup import bootstrap_project
 
 # Initialiser le projet Kedro
-PROJECT_PATH = "../"
+PROJECT_PATH = "../pyproject.toml"
 bootstrap_project(PROJECT_PATH)
+
 
 # Modèle pour les données d'entrée
 class PredictionInput(BaseModel):
