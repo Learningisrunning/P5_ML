@@ -16,6 +16,7 @@ from sklearn.metrics import jaccard_score
 from sklearn.metrics import recall_score
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.pipeline import Pipeline
+from spacy.cli import download
 
 
 # Ignorer les erreurs de certificat
@@ -25,8 +26,18 @@ def setup_nltk():
     nltk.data.path.append('/Users/tomdumerle/nltk_data')
     nltk.download('stopwords')
 
+#def setup_spacy() -> spacy.language.Language:
+ #   return spacy.load('en_core_web_sm')
+
 def setup_spacy() -> spacy.language.Language:
-    return spacy.load('en_core_web_sm')
+    try:
+        # Essayer de charger le modèle
+        return spacy.load('en_core_web_sm')
+    except OSError:
+        # Si le modèle n'est pas trouvé, le télécharger
+        print("Downloading 'en_core_web_sm' model...")
+        download('en_core_web_sm')
+        return spacy.load('en_core_web_sm')
 
 # création de la liste de base des stop words 
 liste_default_stopwords = nltk.corpus.stopwords.words("english")
