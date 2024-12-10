@@ -1,6 +1,6 @@
-data_set_from_stack:
-  type: pandas.CSVDataset
-  filepath: /Users/tomdumerle/Desktop/OC-Machine_learning/p5/data_from_stackoverflow.csv
+#data_set_from_stack:
+ # type: pandas.CSVDataset
+  #filepath: /Users/tomdumerle/Desktop/OC-Machine_learning/p5/data_from_stackoverflow.csv
 
 mlb: 
   type: pickle.PickleDataset
