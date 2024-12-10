@@ -4,19 +4,19 @@
 
 mlb: 
   type: pickle.PickleDataset
-  filepath: P5/mlb.pkl
+  filepath: P5_for_deploy/mlb.pkl
 
 BoW_traitement: 
   type: pickle.PickleDataset
-  filepath: P5/BoW_traitement.pkl
+  filepath: P5_for_deploy/BoW_traitement.pkl
 
 trained_model:
   type: pickle.PickleDataset
-  filepath: P5/pipeline_multinomialNB.pkl
+  filepath: P5_for_deploy/pipeline_multinomialNB.pkl
 
 df_test:
   type: pandas.CSVDataset
-  filepath: P5/test_set.csv
+  filepath: P5_for_deploy/test_set.csv
 
 input_data:
   type: pandas.CSVDataset
