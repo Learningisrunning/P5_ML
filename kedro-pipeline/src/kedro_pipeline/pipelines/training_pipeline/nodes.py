@@ -22,8 +22,7 @@ from sklearn.multiclass import OneVsRestClassifier
 
 #Data Spliting: 
 def split_data(df):
-    df_train, df_test = train_test_split(df, test_size=0.2, random_state=42)
-    df_test.to_csv("P5/test_data_set_test.csv", index=False)
+    df_train, df_test = train_test_split(df, test_size=0.001, random_state=42)
     return df_train, df_test
 #Data Cleaning: 
 

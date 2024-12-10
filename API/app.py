@@ -24,6 +24,8 @@ def predict(input: PredictionInput):
     # Convertir les données d'entrée en DataFrame
     input_data = pd.DataFrame([input.model_dump()])
 
+    print("Données d'entrée:", input_data)
+
     try:
         catalog = session.load_context().catalog
         catalog.save("input_data", input_data) 
