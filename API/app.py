@@ -5,7 +5,7 @@ from kedro.framework.session import KedroSession
 from kedro.framework.startup import bootstrap_project
 
 # Initialiser le projet Kedro
-PROJECT_PATH = "../kedro-pipeline"
+PROJECT_PATH = "/app/kedro-pipeline"
 bootstrap_project(PROJECT_PATH)
 
 
