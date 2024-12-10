@@ -1,0 +1,701 @@
+Title,Body,Tags,Id,Score,ViewCount,AnswerCount,CreationDate
+Confusion about virtual/new/override,"<p>I am a bit confused about the <code>virtual</code>/<code>new</code>/<code>override</code> thing. Here's an example:</p>
+
+<pre><code>class A
+{
+    public virtual void mVVirtual() { Console.WriteLine(""A::mVVirtual""); }
+}
+
+class B : A
+{
+    public virtual void mVVirtual() { Console.WriteLine(""B::mVVirtual""); }
+}
+
+class C : B
+{
+    public override void mVVirtual() { Console.WriteLine(""C::mVVirtual""); }
+}
+
+
+class Test
+{
+    static void Main()
+    {
+        B b1 = new C();
+        b1.mVVirtual();    //C::mVVirtual ... I understand this
+
+        A a2 = new C();
+        a2.mVVirtual();    //A::mVVirtual ... ???
+    }
+}
+</code></pre>
+
+<p>I don't get why in the second call we get <code>A::mVVirtual</code>. I usually treat these issues with this ""algorithm"":</p>
+
+<ol>
+<li>Check the type of the variable holding the reference for the object for an instance method called <code>mVVirtual</code>? Doesn't have one...but does have a virtual method with that signature and name!</li>
+<li>Virtual method? Let's then check the type of the object being held by <code>a2</code> (<code>C</code>) for an overriding of that method. It has one -> Executes <code>C::mVVirtual</code>!</li>
+</ol>
+
+<p>Where is my ""algorithm"" wrong? I really am confused by this, and would greatly appreciate some help.</p>
+",<c#><virtual><overriding><new-operator><keyword>,2065780,8,1900,5,2010-01-14 16:40:14
+RoR on GAE?,"<p>Since Google App Engine will soon full support <a href=""http://googleappengine.blogspot.com/2009/04/seriously-this-time-new-language-on-app.html"" rel=""nofollow noreferrer"">Java</a>: </p>
+
+<p>Would it be possible to run Ruby on Rails on Google App Engine? Or the limitations imposed by the AppEngine runtime will affect the JRuby implementation?</p>
+
+<p>What about other languages such as Groovy, Clojure, Scheme?</p>
+
+<p>Are there any effort to support .net and C# in JVM?? I think this would create a NEXT level on webdevelopment.</p>
+",<c#><java><ruby-on-rails><google-app-engine><jvm-languages>,753031,5,989,4,2009-04-15 18:19:28
+Maximum buffer length for sendto?,"<p>How do you get the maximum number of bytes that can be passed to a <code>sendto(..)</code> call for a socket opened as a UDP port?</p>
+",<sockets><unix><network-programming><udp><ioctl>,25841,11,17310,3,2008-08-25 10:27:55
+How to print TPanel contents?,"<p>I have TPanel. On this Panel there is an TImage descendant , few other panels with controls, etc. In fact, picture contains some diagram, while additional panels with labels are created during runtime to provide user with additional info.<br>
+Recently I was told, that it would be nice, if it was possible to print this panel, and have it on the paper just as it appears in form. Any clues, how to do it?</p>
+",<delphi><printing><vcl><delphi-5><tpanel>,929589,3,6107,2,2009-05-30 11:38:34
+How to unit-test a method that receives a FormCollection to upload a file?,"<p>I want to Unit-test a method like the following:</p>
+
+<pre><code>public ActionResult StoreFile(FormCollection form, string _paginaAtual)
+{
+     Session[""MySession""] = 1
+     if (Request.Files[""uploadedFiles""] != null)
+         {
+             //do something about the file
+         }
+     return View()
+}
+</code></pre>
+
+<p>It's inside my ""SomeController.cs"" controller class and it is called when the user submits a file in a simple input type=""file"" HTML input.</p>
+
+<p>P.S.: Purists beware: I KNOW this is not a ""pure"" unit testing, I just want to call the method in a test environment and check if it makes de desirable changes in the system.</p>
+
+<p>Thank you all for any light in the subject,
+Lynx.</p>
+",<c#><asp.net-mvc><unit-testing><file-upload><input-type-file>,2327263,6,3177,2,2010-02-24 15:44:20
+Rules engine for spatial and temporal reasoning?,"<p>I have an application that receives a number of datums that characterize 3 dimensional spatial and temporal processes.  It then filters these datums and creates actions which are then sent to processes that perform the actions.  Rinse and repeat.</p>
+
+<p>At present, I have a collection of custom filters that perform a lot of complicated spatial/temporal calculations.</p>
+
+<p>Many times as I discuss my system to individuals in my company, they ask if I'm using a rules engine.</p>
+
+<p>I have yet to find a rules engine that is able to reason well temporally and spatially.  (Things like: When are two 3D entities ever close?  Is 3D entity A ever contained in 3D region B?  If entity C is near entity D but oriented backwards relative to C then perform action D.)</p>
+
+<p>I have looked at Drools, Cyc, Jess in the past (say 3-4 years ago).  It's time to re-examine the state of the art.  Any suggestions?  Any standards that you know of that support this kind of reasoning?  Any defacto standards?  Any applications?</p>
+
+<p>Thanks!</p>
+",<spatial><drools><rule-engine><temporal><jess>,2469567,2,2758,3,2010-03-18 11:57:19
+What's the difference between [NSNull null] and nil?,"<p>Here's a context where I have seen that:</p>
+
+<pre><code>NSMutableArray *controllers = [[NSMutableArray alloc] init];
+for (unsigned i = 0; i &lt; kNumberOfPages; i++) {
+    [controllers addObject:[NSNull null]];
+}
+</code></pre>
+
+<p>why not nil in that place?</p>
+",<objective-c><cocoa-touch><cocoa><null><nsnull>,836601,51,32850,6,2009-05-07 19:39:05
+"How would you build a ""pixel perfect"" GUI on Linux?","<p>I'd like build a GUI where every single pixel is under my control (i.e. not using the standard widgets that something like GTK+ provides). <a href=""http://www.renoise.com/screenshots"" rel=""nofollow noreferrer"" title=""renoise"">Renoise</a> is a good example of what I'm looking to produce.</p>
+
+<p>Is getting down to the Xlib or XCB level the best way to go, or is it possible to achieve this with higher level frameworks like GTK+ (maybe even PyGTK)? Should I be looking at Cairo for the drawing?</p>
+
+<p>I'd like to work in Python or Ruby if possible, but C is fine too.</p>
+",<linux><user-interface><gtk><x11><xlib>,2756963,7,2040,6,2010-05-03 08:46:25
+How to handle the key presses in a J2ME GUI application,"<p>I programmed a bluetooth Television-Remote control for cellphones in J2ME using <code>javax.microedition.lcdui.*</code> (Gauge, List, ChoiseGroup) GUI-Elements. </p>
+
+<p>I want the cellphone to have real-time interaction with my Television, I would like to find way to send user inputs performed with the GUI-Elements immediately (like changing the channel, or changing the volume) to the Television. </p>
+
+<p>Since I want real-time interaction with my Television, I would like to find way to send user inputs performed with the GUI-Elements immediately (e.g. changing the channel, or changing the volume) to the TV. </p>
+
+<p>Using <code>javax.microedition.lcdui.Command</code> / <code>CommandListner</code> and <code>commandAction</code> won't work since these need only recognize the commands selected with the side buttons. I would like to have something that can recognize any key pressed. </p>
+
+<p>I discovered that <code>Javax.microedition.lcdui.Canvas.keyPressed</code> can handle any key pressed on the cellphone, but I don't know how to make Canvas work with MIDP GUI elements like Gauge. They can't be added like Commands. </p>
+
+<p>Do I have to figure out way to build a interface for these GUI elements to make them work with Canvas?</p>
+",<user-interface><canvas><java-me><midp><midp-2.0>,381062,0,1484,4,2008-12-19 14:13:54
+CruiseControl.rb PATH,"<p>I'm trying to get CruiseControl.rb to run rcov during a build. It's currently failing with the following error:</p>
+
+<pre><code>sh: rcov: not found 
+</code></pre>
+
+<p>Since I can run <code>rcov</code> from the shell when I log in, I figure that this is a PATH problem. (Additionally, I can run both <code>rake test:rcov</code> and <code>rake cruise</code> from the shell without errors). I added a <code>p 'echo $PATH'</code> statement (with the correct backticks to execute the command; thanks Markdown) to my cruise.rake and discovered that the path was indeed incorrect:</p>
+
+<pre><code>""/usr/local/bin:/usr/bin:/bin\n""
+</code></pre>
+
+<p>The rcov executable is at /var/lib/gems/1.8/bin/rcov, so it's no wonder that CC.rb can't find it.</p>
+
+<p>However, I can't figure out how to set the path properly. I have this set at the bottom of my .profile:</p>
+
+<pre><code>PATH=""$PATH:/var/lib/gems/1.8/bin/""
+</code></pre>
+
+<p>This is what makes it work interactively, but it's not being picked up by CC.</p>
+
+<p>I'm running CruiseControl.rb under Passenger Phusion (and thus under apache). I've checked as many files as I can think of, but nothing looks like a PATH to me.</p>
+
+<p>Where can I set the path and/or determine where the path is being set?</p>
+",<apache><passenger><cruisecontrol><sh><cruisecontrol.rb>,2217966,1,692,2,2010-02-07 19:26:59
+x86 opcode alignment references and guidelines,"<p>I'm generating some opcodes dynamically in a JIT compiler and I'm looking for guidelines for opcode alignment.</p>
+
+<p>1) I've read comments that briefly ""recommend"" alignment by adding nops after calls</p>
+
+<p>2) I've also read about using nop for optimizing sequences for parallelism.</p>
+
+<p>3) I've read that alignment of ops is good for ""cache"" performance</p>
+
+<p>Usually these comments don't give any supporting references. Its one thing to read a blog or a comment that says, ""its a good idea to do such and such"", but its another to actually write a compiler that implements specific op sequences and realize most material online, especially blogs, are not useful for practical application. So I'm a believer in finding things out myself (disassembly, etc. to see what real world apps do). This is one case where I need some outside info.</p>
+
+<p>I notice compilers will usually start an odd byte instruction immediately after whatever previous instruction sequence there was. So the compiler is not taking any special care in most cases. I see ""nop"" here or there, but usually it seems nop is used sparingly, if at all. How critical is opcode alignment? Can you provide references for cases that I can actually use for implementation? Thanks.</p>
+",<assembly><x86><x86-64><memory-alignment><micro-optimization>,2485721,4,1242,2,2010-03-21 02:56:09
+Is there a C++ iterator that can iterate over a file line by line?,"<p>I would like to get an istream_iterator-style iterator that returns each line of the file as a string rather than each word.  Is this possible?</p>
+",<c++><file><iterator><newline><line>,2291802,62,62423,8,2010-02-18 20:04:42
+"Misuse of the CSS class attribute, or valid design pattern?","<p>As you most likely already know, it's simple in JQuery to select all elements in the document that have a specific CSS class, and then, using chaining, assign common event handlers to the selected elements:</p>
+
+<pre><code>$("".toolWindow"").click(toolWindow_click);
+$("".toolWindow"").keypress(toolWindow_keypress);
+</code></pre>
+
+<p>As usual the class ""toolWindow"" is also normally defined in CSS and associated with some visual styles:</p>
+
+<pre><code>.toolWindow{
+   color:blue;
+   background-color:white;
+}
+</code></pre>
+
+<p>The class attribute is now responsible for indicating not just the appearance (visual state) of the element, but also the behaviour.  As a result, I quite often use this approach and define CSS class names more as pseudo object oriented classes then visual only CSS classes.  In other words, each class represents both state (CSS styles) and behaviour (events).  </p>
+
+<p>In some cases I have even created classes with no visual styling and simply use them as a convenient way to assign behaviour to elements.  </p>
+
+<p>Moreover, the jQuery LiveQuery plugin (and the live() built-in function) make this approach even more effective by automatically binding events to dynamically created elements belonging to a specificed class.</p>
+
+<p>Of late I am primarily using class names as defining a common set of behaviour for associated DOM elements and only later using them to define a visual style. </p>
+
+<p>Questions:  Is this a terrible misuse of the CSS ""class"" attribute, if so why?  </p>
+
+<p>On the other hand, perhaps it is a perfectly valid approach to further implementing ""separate of concerns"" and improving the maintainability of HTML/DHTML pages? </p>
+",<javascript><jquery><html><css><oop>,532906,6,1396,11,2009-02-10 15:58:47
+Spawning multiple SQL tasks in SQL Server 2005,"<p>I have a number of stored procs which I would like to all run simultaneously on the server.  Ideally all on the server without reliance on connections to an external client.</p>
+
+<p>What options are there to launch all these and have them run simultaneously (I don't even need to wait until all the processes are done to do additional work)?</p>
+
+<p>I have thought of:</p>
+
+<ul>
+<li>Launching multiple connections from
+a client, having each start the
+appropriate SP.</li>
+<li>Setting up jobs for
+each SP and starting the jobs from a
+SQL Server connection or SP.</li>
+<li>Using
+xp_cmdshell to start additional runs
+equivalent to osql or whetever</li>
+<li>SSIS - I need to see if the package can be dynamically written to handle more SPs, because I'm not sure how much access my clients are going to get to production</li>
+</ul>
+
+<p>In the job and cmdshell cases, I'm probably going to run into permissions level problems from the DBA...</p>
+
+<p>SSIS could be a good option - if I can table-drive the SP list.</p>
+
+<p>This is a datawarehouse situation, and the work is largely independent and NOLOCK is universally used on the stars.  The system is an 8-way 32GB machine, so I'm going to load it down and scale it back if I see problems.</p>
+
+<p>I basically have three layers, Layer 1 has a small number of processes and depends on basically all the facts/dimensions already being loaded (effective, the stars are a Layer 0 - and yes, unfortunately they will all need to be loaded), Layer 2 has a number of processes which depend on some or all of Layer 1, and Layer 3 has a number of processes which depend on some or all of Layer 2.  I have the dependencies in a table already, and would only initially launch all the procs in a particular layer at the same time, since they are orthogonal within a layer.</p>
+",<sql><sql-server><sql-server-2005><automation><parallel-processing>,162919,2,1140,4,2008-10-02 15:15:59
+Sync without scanning individual files?,"<p>Consider two directories:</p>
+
+<pre>
+/home/user/music/flac
+/media/MUSIC/flac
+</pre>
+
+<p>I would like the second directory (destination; a USB drive) to contain the same files and structure as the first directory (master). There are 3600+ files (59G in total). Every file is scanned using <a href=""http://www.cis.upenn.edu/~bcpierce/unison/"" rel=""nofollow noreferrer"">unison</a>, which is painfully slow. I would rather it compare based on file name, size, and modification time.</p>
+
+<p>I think <a href=""http://www.samba.org/rsync/"" rel=""nofollow noreferrer"">rsync</a> might be better but the examples from the man pages are rather cryptic, and Google searches did not reveal any simple, insightful examples. I would rather not accidentally erase files in the master. ;-)</p>
+
+<p>The master list will change over time: directories reorganized, new files added, and existing files updated (e.g., re-tagging). Usually the changes are minor; taking hours to complete a synchronization strikes me as sub-optimal.</p>
+
+<p>What is the exact command to sync the destination directory  with the master?</p>
+
+<p>The command should copy new files, reorganize moved files (or delete then copy), and copy changed files (based on date). The destination files should have their timestamp set to the master's timestamp.</p>
+",<linux><file><synchronization><performance><rsync>,1274946,6,826,2,2009-08-13 22:23:26
+Javascript Toggling,"<p>I'm trying to get a toggle effect but not quite sure how to do it or what to look for. (i jave Jquery loaded).</p>
+
+<p>assume html similar to</p>
+
+<pre><code>&lt;table class=""left-dates""&gt;
+    &lt;tr&gt;&lt;td&gt;All Dates&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;01 dec 2009&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;02 dec 2009&lt;/td&gt;&lt;/tr&gt;   
+    &lt;tr&gt;&lt;td&gt;03 dec 2009&lt;/td&gt;&lt;/tr&gt;   
+    &lt;tr&gt;&lt;td&gt;04 dec 2009&lt;/td&gt;&lt;/tr&gt;   
+&lt;/table&gt;
+
+&lt;div class=""box 01-dec-2009""&gt;
+    foo
+&lt;/div&gt;
+
+&lt;div class=""box 03-dec 2009""&gt;
+    bar
+&lt;/div&gt;
+
+&lt;div class=""box 04-dec-2009""&gt;
+    foobar
+&lt;/div&gt;
+</code></pre>
+
+<p><strong>Steps to take</strong> </p>
+
+<ol>
+<li>All div's are shown</li>
+<li>Clicking on a td for a date will hide all but the div with the class of the day clicked</li>
+<li>clicking ""All dates"" will show everything again</li>
+</ol>
+
+<p>any idea how i could achive this cleanly? ideally using JQuery.</p>
+",<javascript><jquery><html><xhtml><toggle>,1844426,0,184,3,2009-12-04 01:58:51
+WPF Animation - Animating Bezier curve points,"<p>I'm working on a project that involves drawing curved paths between two objects.  Currently, I've been writing some test code to play around with bezier curves and animation.  The first test is simply to move the endpoint (Point3) from the origin object (a rectangle) to the destination object (another rectangle), in a straight line.  here is the code which sets up the actual line:</p>
+
+<pre><code>        connector = new Path();
+        connector.Stroke = Brushes.Red;
+        connector.StrokeThickness = 3;
+
+        PathGeometry connectorGeometry = new PathGeometry();
+        PathFigure connectorPoints = new PathFigure();
+        connectorCurve = new BezierSegment();
+
+        connectorPoints.StartPoint = new Point((double)_rect1.GetValue(Canvas.LeftProperty) + _rect1.Width / 2,
+            (double)_rect1.GetValue(Canvas.TopProperty) + _rect1.Height / 2);
+        connectorCurve.Point1 = connectorPoints.StartPoint;
+        connectorCurve.Point2 = connectorPoints.StartPoint;
+        connectorCurve.Point3 = connectorPoints.StartPoint;
+
+        connectorPoints.Segments.Add(connectorCurve);
+        connectorGeometry.Figures.Add(connectorPoints);
+        connector.Data = connectorGeometry;
+        MainCanvas.Children.Add(connector);
+</code></pre>
+
+<p>OK, so we now have a line collapsed to a point.  Now, lets animate that line, going from _rect1 to _rect2 (the two objects at the endpoints):</p>
+
+<pre><code>        PointAnimation pointAnim = new PointAnimation();
+        pointAnim.From = connectorCurve.Point3;
+        pointAnim.To = new Point((double)_rect2.GetValue(Canvas.LeftProperty) + _rect2.Width / 2,
+            (double)_rect2.GetValue(Canvas.TopProperty) + _rect2.Height / 2);
+        pointAnim.Duration = new Duration(TimeSpan.FromSeconds(5));
+        board.Children.Add(pointAnim);
+</code></pre>
+
+<p>Works beautifully.  However, when I try to do it with a storyboard, I get nothing.  Here's the storyboarded code:</p>
+
+<pre><code>        Storyboard board = new Storyboard();
+        PointAnimation pointAnim = new PointAnimation();
+        pointAnim.From = connectorCurve.Point3;
+        pointAnim.To = new Point((double)_rect2.GetValue(Canvas.LeftProperty) + _rect2.Width / 2,
+            (double)_rect2.GetValue(Canvas.TopProperty) + _rect2.Height / 2);
+        pointAnim.Duration = new Duration(TimeSpan.FromSeconds(5));
+
+        Storyboard.SetTarget(pointAnim, connectorCurve);
+        Storyboard.SetTargetProperty(pointAnim, new PropertyPath(BezierSegment.Point3Property));
+        board.Children.Add(pointAnim);
+        board.Begin();
+</code></pre>
+
+<p>Nothing moves.  I'm suspecting there is a problem with what I'm feeding SetTarget or SetTargetProperty, but can't seem to figure it out.  Does anyone have experience with animating line / bezier points in WPF?</p>
+",<c#><wpf><animation><storyboard><bezier>,1088833,9,4823,2,2009-07-06 19:34:52
+ASP.Net - C# - SQL Server - Refreshing cached DataTable with only records that have changed,"<p>I have a large DataTable cached in my web app that is the result of a complex query that returns a large data set. Whilst this data table is cached the query that runs to ""refresh"" this cache still takes a long time, largely due to the sheer amount of data being returned.</p>
+
+<p>In order to speed this up I am considering implementing a timestamp type approach to my tables in order to limit my query to only return rows which have changed.</p>
+
+<p>I then intend to merge this smaller dataset with my cached datatable.</p>
+
+<p>Has anyone done anything similar to this, or is there anything out there that handles this already?</p>
+
+<p>I feel this could be a re-inventing the wheel situation if I dive straight in.</p>
+",<c#><asp.net><sql-server><caching><datatable>,2100475,4,3035,1,2010-01-20 10:07:38
+How can I determine the cause of an IIS Crash on a 64-bit Server,"<p>I have a .net 2.0 web application that is running on Windows server 2003 Standard x64, using IIS 6.</p>
+
+<p>The application pool for our website started crashing recently and I can't determine why. It started happening on a weekend, and the latest release of the website was several days earlier. I have determined that no other changes were made to the server recently, including code and Microsoft updates.</p>
+
+<p>The event log shows the following whenever a crash occurs with no additional information in the data block:</p>
+
+<blockquote>
+  <p>Faulting application w3wp.exe, version
+  6.0.3790.3959, stamp 45d691cc, faulting module kernel32.dll, version
+  5.2.3790.4062, stamp 462643a7, debug? 0, fault address 0x0000000000027d8d.</p>
+</blockquote>
+
+<p>This is running on a x64 server so I can't use any of the standard Debug Diagnostic Tools because even though there is a 64 bit version of it, it only attaches to IIS running in 32 bit mode.</p>
+
+<p>I have tried using the Debugging Tools for Windows (x64) and was able to attach to the w3wp process, and waited for another crash. However, this slowed the server down so much that it was unusable, so I had to stop it.</p>
+
+<p>What other methods can I use to try to determine the cause of an IIS crash?</p>
+",<asp.net><iis><iis-6><crash><crash-dumps>,939967,7,15029,3,2009-06-02 14:43:53
+"How can I make multi-line, vertically and horizontally aligned labels for radio buttons in HTML Forms with CSS?","<p>Assuming the following markup:</p>
+
+<pre><code>&lt;fieldset&gt;
+    &lt;legend&gt;Radio Buttons&lt;/legend&gt;
+    &lt;ol&gt;
+        &lt;li&gt;
+            &lt;input type=""radio"" id=""x""&gt;
+            &lt;label for=""x""&gt;&lt;!-- Insert multi-line markup here --&gt;&lt;/label&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+            &lt;input type=""radio"" id=""x""&gt;
+            &lt;label for=""x""&gt;&lt;!-- Insert multi-line markup here --&gt;&lt;/label&gt;
+        &lt;/li&gt;
+    &lt;/ol&gt;
+&lt;/fieldset&gt;
+</code></pre>
+
+<p>How do I style radio button labels so that they look like the following in most browsers (IE6+, FF, Safari, Chrome:</p>
+
+<p><img src=""https://i.sstatic.net/sfsfW.png"" alt=""Radio Button Labels""></p>
+",<html><css><cross-browser><radio-button><label>,911644,12,38741,5,2009-05-26 16:44:38
+"Why is using a certificate, made with the MakeCert tool, in production bad?","<p>I'm currently working on a project where I've created a CA cert and a couple of child certs to that CA cert. The certificates are going to be used to protect inter-server communication in a SAMLV2 setup so I'm going to have a cert for the identity provider and a cert for the service provider. The user/browser isn't going to validate the certs so it's only the servers that need to trust my custom CA. My cert tree looks something like this:</p>
+
+<ul>
+<li>CustomRootCACert
+
+<ul>
+<li>CustomIdentityProviderCert</li>
+<li>CustomServiceProviderCert</li>
+</ul></li>
+</ul>
+
+<p>Now, I've heard a lot of people saying it's bad to use a home-made certificate in production. But when I ask why, people usually just mutters something about security but never go into the details. Are there any technical reasons not to use my own certs in production? I can't think of any... Of course I realize that if I lose control of my root cert anyone could start creating all sorts of certificates. But in this case they would also have to install the certificates on my servers and configure the saml application to use them. Only then could they start to generate fake saml requests and responses to my applications.</p>
+
+<p>If this is the only problem, this solution (using home-made certs in production) would still be better than the login setup we have today.</p>
+",<security><ssl><certificate><saml><certificate-authority>,527768,12,5068,4,2009-02-09 11:20:06
+Distributed Key-Value Data Store with Offline Access (Static Partitioning),"<p>Need to be able to set server(s) that replicate all information, as a master data store that has all the data.</p>
+
+<p>Also need servers that specifically store/replicate certain data, available in local LANs, so that when the internet connection goes down, they can still access their local data.  Under normal circumstances, the clients will access most of their data from the local LAN, and may use others when the local LAN server goes down.</p>
+
+<p>This is wanted alongside the benefits of a distributed data store, such as failure resistance and speed.</p>
+
+<p>Which Distributed Key-Value Data Store or other data storage method would be most suited for this?</p>
+",<database><distributed><partitioning><sharding><key-value>,1130501,0,596,3,2009-07-15 10:01:58
+What are the best open source Nagios interfaces?,"<p>(best in your own eyes) Most features?  Coolest Features?  Slickest Design?</p>
+
+<p><a href=""http://www.centreon.com/"" rel=""nofollow noreferrer"">Centreon</a>?</p>
+
+<p><a href=""http://www.nagvis.org/"" rel=""nofollow noreferrer"">NagVis</a>?</p>
+
+<p>Other?</p>
+",<open-source><network-programming><monitoring><daemon><nagios>,101414,1,2030,4,2008-09-19 12:24:54
+STL List to hold structure pointers,"<p>I have a structure called vertex and I created some pointers to them.  What I want to do is add those pointers to a list.  My code below, when it tries to insert the pointer into the list, creates a segmentation fault.  Can someone please explain what is going on?</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;list&gt;
+
+#define NUM_VERTICES 8
+
+using namespace std;
+
+enum { WHITE, GRAY, BLACK };
+
+struct vertex
+{
+    int color;
+    int distance;
+    char parent;
+};
+
+int main()
+{
+    //create the vertices
+    vertex r = {WHITE, NULL, NULL};
+
+    //create pointer to the vertex structures
+    vertex *pr = &amp;r;
+
+    //create a list to hold the vertices
+    list&lt;vertex*&gt; *r_list = new list&lt;vertex*&gt;;
+
+    list&lt;vertex*&gt;::iterator it;
+
+    r_list-&gt;insert(it, pr);
+}
+</code></pre>
+",<c++><list><stl><pointers><segmentation-fault>,1085489,4,27460,4,2009-07-06 04:59:44
+How to get .pem file from .key and .crt files?,"<p>How can I create a PEM file from an SSL certificate? </p>
+
+<p>These are the files that I have available: </p>
+
+<ul>
+<li><code>.crt</code></li>
+<li><code>server.csr</code> </li>
+<li><code>server.key</code></li>
+</ul>
+",<ssl><openssl><pem><asn.1><der>,991758,809,1678008,14,2009-06-13 23:23:35
+How do I change the permissions that MySQL uses to create database directories and files?,"<p>I have a self-installed MySQL service running on my OS X Snow Leopard machine, compiled using the automated installer from mysql.com.</p>
+
+<p>The problem I'm having is that I want to sync my database files, from the ""data"" directory, using Dropbox. All directories and files created within that folder are being assigned to the user ""_mysql"" and group ""wheel"", with the permission of 700. This permission is leaving the files effectively locked, with a red ""no entry"" icon overlay, and not allowing Dropbox, or me, access to them.</p>
+
+<p>As a temporary measure I can manually change the file permissions to 755 to give me the required access. However, any new database files created by MySQL will still be given the default permission value of 700. Not ideal.</p>
+
+<p>What I need to do is either change the user/group that MySQL uses to creates these files or change the default permissions value to something that will allow other users/groups to at least read the database files.</p>
+",<mysql><database><macos><osx-snow-leopard><file-permissions>,1696944,0,4271,1,2009-11-08 15:57:02
+Can fields of the class and arguments of the method interfere?,"<p>I have a class with a fields called ""a"". In the class I have a method and in the list of arguments of this method I also have ""a"". So, which ""a"" I will see inside of the method? Will it be the field or it will be the argument of the method?</p>
+
+<pre><code>public class myClass {
+   private String a;
+   // Method which sets the value of the field ""a"".
+   public void setA(String a) {
+     a = a;
+   }
+}
+</code></pre>
+
+<p>By the way, there is a similar situation. A method has some local (for method) variables whose names coincide with the names of the fields. What will the ""see"" the method if I refer to such a method-local variable inside the method (the field or the local variable)?</p>
+",<java><concurrency><methods><field><visibility>,2442531,0,162,5,2010-03-14 14:58:23
+controling the tabs of the tabs bar in gwt,"<p>sorry for stupid question i am new to UI in general and gwt specifically </p>
+
+<ol>
+<li>how can i control the tabs width
+when using tabs panel in gwt? how</li>
+<li>how can i know what css attributes
+each widget has? i would like to
+control the tabs color (selected and
+not selected) and remove the tabs frame</li>
+</ol>
+
+<p>thanks</p>
+",<gwt><user-interface><width><widget><tabpanel>,1891690,1,1380,2,2009-12-12 00:14:53
+Simple array loop question Objective-C,"<p>How can you make this work?</p>
+
+<pre><code>numbers = [[NSMutableArray alloc] initWithObjects: ({int x = 0; while (x &lt;= 60 ) { return x; x++; } })];
+</code></pre>
+
+<p>Thanks :)</p>
+",<iphone><objective-c><xcode><arrays><loops>,2231095,1,4828,3,2010-02-09 17:34:41
+Using XDebug to trace a PHP web service page,"<p>I'm using Eclipse and XDebug to develop a PHP application that relies on web services.
+I have test pages that consume my services in 2 ways: AJAX (using jQuery) and cURL.</p>
+
+<p>I add breakpoints to my service page and launch the debugger. When I call the the service from AJAX, execution stops nicely at the breakpoint, and I get my variables, step-by-step control etc. </p>
+
+<p>But when I call the service using cURL (i.e. from within a PHP page), the breakpoints fail to function. Even if I turn on the ""Break at first line"" debugger option, I cannot get the execution to stop when using cURL.</p>
+
+<p>Is it a debugger behavior? Do I need to add a hearder to my cURL calls? Alter the URL? Or is it an XDebug limitation?</p>
+
+<p>Thanks for your time and effort,
+Guy</p>
+",<php><eclipse><debugging><curl><xdebug>,2045316,7,16346,6,2010-01-11 22:07:53
+UIImagePickerController: Detecting Camera button (shutter) pressed,"<p>I would like to call a method that takes an NSNotification immediately after the user presses the camera shutter (i.e when the ""Preview"" tab bar has the buttons ""Retake"" and ""Use""). </p>
+
+<p>I can't use the didFinishPickingImage method because at this time the user has already pressed the ""Use"" button. </p>
+
+<p>I have already implemented this by cameraOverlayView property of UIImagePickerController(see comments), but I wonder whether there are quicker ways of 'observing' this action. </p>
+
+<p>Any ideas?</p>
+",<iphone><image><camera><uiimagepickercontroller><nsnotification>,2197707,1,4365,2,2010-02-04 06:14:32
+"How to get camera up vector from roll, pitch, and yaw?","<p>I need to get an up vector for a camera (to get the right look) from a roll, pitch, and yaw angles (in degrees).  I've been trying different things for a couple hours and have had no luck :(.  Any help here would be appreciated!</p>
+",<opengl><graphics><3d><directx><xna>,1575216,5,7692,3,2009-10-15 21:32:40
+Best way to get the Original Target,"<p>What's a jQuery like and/or best practices way of getting the original target of an event in jQuery (or in browser javascript in general).  </p>
+
+<p>I've been using something like this</p>
+
+<pre><code>$('body').bind('click', function(e){
+        //depending on the browser, either srcElement or 
+        //originalTarget will be populated with the first
+        //element that intercepted the click before it bubbled up
+        var originalElement = e.srcElement;
+        if(!originalElement){originalElement=e.originalTarget;}                         
+});
+</code></pre>
+
+<p>which works, but I'm not pleased with the two line feature sniffing.  Is there a better way?</p>
+",<javascript><jquery><events><dom><delegates>,485453,29,40273,5,2009-01-27 21:50:00
+Can you change a field label in the Django Admin application?,"<p>As the title suggests. I want to be able to change the label of a single field in the admin application. I'm aware of the Form.field attribute, but how do I get my Model or ModelAdmin to pass along that information?</p>
+",<python><python-3.x><django><django-forms><django-admin>,365082,76,82658,8,2008-12-13 10:30:41
+How to check if a table contains an element in Lua?,"<p>Is there a method for checking if a table contains a value ? I have my own (naive) function, but I was wondering if something ""official"" exists for that ? Or something more efficient...</p>
+
+<pre><code>function table.contains(table, element)
+  for _, value in pairs(table) do
+    if value == element then
+      return true
+    end
+  end
+  return false
+end
+</code></pre>
+
+<p>By the way, the main reason I'm using this functions is to use tables as sets, ie with no duplicate elements. Is there something else I could use ?</p>
+",<lua><set><unique><contains><lua-table>,2282444,167,301547,5,2010-02-17 16:32:32
+any good method to insert a control just like excel into MFC/c++ program?,"<p>I need a excel-like grid control in MFC, do anyone have good suggestion to implement that ?]
+with the control i can filter the data by clicking on the header, then it will display distinct data of current column for selection.</p>
+
+<p>Thanks!</p>
+",<c++><database><excel><gridview><mfc>,1422228,1,945,1,2009-09-14 15:18:32
+How do I push a new local branch to a remote Git repository and track it too?,"<p>How do I:</p>
+<ol>
+<li><p>Create a local branch from another branch (via <code>git branch</code> or <code>git checkout -b</code>).</p>
+</li>
+<li><p>Push the local branch
+to the remote repository (i.e. publish), but make it
+trackable so that <code>git pull</code> and <code>git push</code> will work.</p>
+</li>
+</ol>
+",<git><repository><git-branch><git-push><git-remote>,2765421,5738,6311225,20,2010-05-04 12:58:34
+format dojo DataGrid header row,"<p>I want to assign a background color to my programmatically created Dojo DataGrid's header row. I've tried to override the defaults by adding .dojoxGridHeader or .dojoxGrid-Header to my style sheet, but these have no effect.</p>
+
+<p>Is there another way, such as with a Dojo event or property? If my style sheet is the only way to go, am I using the wrong class?</p>
+
+<p>Thanks!
+Alan</p>
+",<datagrid><dojo><coding-style><header><stylesheet>,2450539,1,5849,2,2010-03-15 21:13:57
+Draw a smooth line with finger touch on iPhone,"<p>How do I draw a smooth line with a finger slide/touch motion on the iPhone?  I have the following code but it is not smooth.  It makes corners/turns for example when I try to do a circle.  I think I have to use OpenGL.  Any ideas?  sample code? tutorials?</p>
+
+<p>Thanks!</p>
+
+<pre><code>UIGraphicsBeginImageContext(self.view.frame.size);
+[drawImage.image drawInRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+CGContextSetLineWidth(UIGraphicsGetCurrentContext(), 5.0);
+CGContextSetAllowsAntialiasing(UIGraphicsGetCurrentContext(), YES);
+CGContextSetRGBStrokeColor(UIGraphicsGetCurrentContext(), 1.0, 0.0, 0.0, 1.0);
+CGContextBeginPath(UIGraphicsGetCurrentContext());
+CGContextMoveToPoint(UIGraphicsGetCurrentContext(), lastPoint.x, lastPoint.y);
+CGContextAddLineToPoint(UIGraphicsGetCurrentContext(), currentPoint.x, currentPoint.y);
+CGContextStrokePath(UIGraphicsGetCurrentContext());
+drawImage.image = UIGraphicsGetImageFromCurrentImageContext();
+UIGraphicsEndImageContext();
+</code></pre>
+",<iphone><opengl-es><line><draw><smoothing>,2680206,3,4322,3,2010-04-21 03:54:18
+How can I get SSIS Lookup transformation to ignore alphabetical case?,"<p>Hopefully this is easy to explain, but I have a lookup transformation in one of my SSIS packages. I am using it to lookup the id for an emplouyee record in a dimension table. However my problem is that some of the source data has employee names in all capitals (ex: CHERRERA) and the comparison data im using is all lower case (ex: cherrera).</p>
+
+<p>The lookup is failing for the records that are not 100% case similar (ex: cherrera vs cherrera works fine - cherrera vs CHERRERA fails). Is there a way to make the lookup transformation ignore case on a string/varchar data type?</p>
+",<sql><sql-server><ssis><lookup><business-intelligence>,849758,8,12696,4,2009-05-11 19:52:52
+Set Excel Named Ranges via C#?,"<p>I'm trying to replicate this Access VBA code using C#, but am unable to do so.
+Wondering if anyone else has tried this before and can help.</p>
+
+<p>oWB.Worksheets(""Signoff"").Range(""rgSignOffRecTemplate"").Value = g_TemplatePath &amp; ""Signoff_Rec.XLT""</p>
+
+<p><strong><em>rgSignOffRecTemplate</em></strong> is a ""Defined Name"" in the Excel template that I'm trying to write to.</p>
+
+<p>Many thanks for your help.</p>
+",<c#><excel><vba><vsto><named-ranges>,2416727,1,6686,1,2010-03-10 12:15:16
+C# WebClient - View source question,"<p>I'm using  a C# WebClient to post login details to a page and read the all the results.</p>
+
+<p>The page I am trying to load includes flash (which, in the browser, translates into HTML). I'm guessing it's flash to avoid being picked up by search engines???</p>
+
+<p>The flash I am interested in is just text (not an image/video) etc and when I ""View Selection Source"" in firefox I do actually see the text, within HTML, that I want to see.</p>
+
+<p>(Interestingly when I view the source for the whole page I do not see the text, within HTML, that I want to see. Could this be related?)</p>
+
+<p>Currently after I have posted my login details, and loaded the HTML back, I see the page which does NOT show the flash HTML (as if I had viewed source for the whole page).</p>
+
+<p>Thanks in advance,</p>
+
+<p>Jim</p>
+
+<p>PS: I should point out that the POST is actually working, my log in is successful.</p>
+",<c#><winforms><httpwebrequest><screen-scraping><webclient>,1471062,2,3553,2,2009-09-24 11:21:00
+Storing jquery code in external file and directory structure?,"<p>Can anyone can confirm the best idea for storing jquery code, initially i was inserting everything in the HEAD of a document but i am seeing more and more code being used across pages,</p>
+
+<p>Is the best way to use include files .. with the extension .JS?  </p>
+
+<p>Anything else or better with respect to this?</p>
+
+<p>What would be the best place to store my .js file if this is the case..</p>
+
+<p>of the root i have</p>
+
+<p>/css
+/scripts</p>
+
+<p>etc ... /scripts is where my jquery files are... but should i be using the same for my .js files?</p>
+
+<p>Anyone have some recommendation on directory structure?</p>
+",<javascript><jquery><structure><external><include>,752198,3,4580,4,2009-04-15 15:21:14
+Path of current Python instance?,"<p>I need to access the <code>Scripts</code> and <code>tcl</code> sub-directories of the currently executing Python instance's installation directory on Windows.</p>
+
+<p>What is the best way to locate these directories?</p>
+",<python><windows><installation><path><python-3.x>,2276512,1,874,2,2010-02-16 21:31:29
+Which Unix flavour do I need? J2EE application using IBM tools?,"<p>I want to try Unix for developing <a href=""http://en.wikipedia.org/wiki/Java_Platform,_Enterprise_Edition"" rel=""nofollow noreferrer"">J2EE</a> application. I use the IBM software.</p>
+
+<ol>
+<li><a href=""http://en.wikipedia.org/wiki/IBM_WebSphere_Application_Server_Community_Edition"" rel=""nofollow noreferrer"">WASCE</a> as application server</li>
+<li><a href=""http://en.wikipedia.org/wiki/IBM_DB2_Express-C"" rel=""nofollow noreferrer"">DB2 Express-C</a> as database.</li>
+<li>Eclipse</li>
+</ol>
+
+<p>Which Unix flavour will be most suitable for me?</p>
+",<eclipse><unix><jakarta-ee><db2><websphere>,1895777,1,371,4,2009-12-13 06:49:32
+How do I select a row in a table based on what ddl option is selected MVC?,"<p>I have a table with a few rows of data.  I would like to display a row based on what option is selected on the ddl.  how do I do that?</p>
+
+<pre><code>&lt;script type=""text/javascript"" language=""javascript""&gt;
+     function optionSelected() {
+          alert('HELP!!');
+     }
+&lt;/script&gt;
+...
+&lt;select id=""optionSelect"" onchange=""optionSelected()""&gt;
+    &lt;option id=""1""&gt;1&lt;/option&gt;
+    &lt;option id=""2""&gt;2&lt;/option&gt;
+    &lt;option id=""3""&gt;3&lt;/option&gt;
+&lt;/select&gt;
+&lt;br /&gt;
+&lt;table id=""optionList""&gt;
+    &lt;tr&gt;&lt;td id=""1""&gt;Option 1 Selected&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td id=""2""&gt;Option 2 Selected&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td id=""3""&gt;Option 3 Selected&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+",<c#><javascript><jquery><html><asp.net-mvc>,2404065,2,250,1,2010-03-08 19:24:14
+Can I avoid having an UpdatePanel that kills viewstate?,"<p>I selection page that has a gridview that presents the user with a list of data items that they can click on to ""drill into"" - redirecting them to the data maintenance page.</p>
+
+<p>Because the list can get long, we have a series of check boxes and drop-down lists at the top that act as filters.</p>
+
+<p>We just implemented an UpdatePanel with an UpdatePanelAnimationExtender so that when the page made long trips back to the databse, they would get a nice ""Processing..."" pop up.</p>
+
+<p>Problem is, this seems to break the viewstate on the drop-down lists and check boxes.  Now, when they go to the 'detail page' and hit the BACK button to get back to the 'selection' page - the selected values in the checkboxes and drop-downlists are back to their initial defaults.  The lists are still populated, but they 'forgot' what they had when the user clicked to the data maintenance page.</p>
+
+<p>I took out the .aspx code for the UpdatePanel and the animation extended and retested and everything worked perfectly.  So, apparently, the UpdatePanel and/or the AnimationExtender doesn't play nice with the viewstate.</p>
+
+<p>Is there a way I can stop the UpdatePanel's actions from, in effect, zeroing out the '.SelectedValue"" properties?</p>
+",<asp.net><ajax><drop-down-menu><checkbox><updatepanel>,1058863,3,7167,1,2009-06-29 15:15:26
+Best way to store and retrieve this..?,"<p>I've been trying all night, and talk of maps, arrays, vectors and hash_maps have filled my head. im just confused now. i posted a previous question here: <a href=""https://stackoverflow.com/questions/1687085/c-map-really-slow"">C++ map really slow?</a></p>
+
+<p>problem was fixed but it seems map's are still not fast enough. i need to keep adding data. data is added ALOT during run time. i got it all working now, and if i add 1 piece of data per step (per frame in the game) it works fine. but once i do 2 at a time, i see performance drops. i looked into this hash stuff but couldn't find alot on it. just an fyi, the number of items stores will probably never exceed 2000~ or so. so i guess it is fairly small scaled..</p>
+
+<p>what im trying to store, as someone else put it, is this:
+""object with id 101 has a value of 4 for setting 1"" or information[101][1] = 4;
+except that i just keep getting more and more objects (differet id's, which is the key value) added into the system with different settings (2nd key). - i dont know what the size of the array will be (thats why i didnt use arrays). looked into vectors but that confused the hell out of me. >_&lt;</p>
+
+<p>right now i have:</p>
+
+<pre><code>//declared as a class member
+map&lt;double,  map&lt;int, double&gt; &gt; objIdMap;
+
+//// lower down the page, in some function
+map&lt;int, double&gt; objSettingsMap;
+objSettingsMap[0] = value;
+objSettingsMap[1] = value;
+objSettingsMap[2] = value;
+objSettingsMap[3] = value;
+objIdMap[id] = objSettingsMap;
+return(1);
+</code></pre>
+
+<p>or maybe it isnt the map's? is it normal for maps to perform slow like this when they're used so heavily? (i havnt included it in the code above, but on every step of the game every object with an id in objIdMap is accessing it to retrieve their objSettingsMap values. though the slow downs only occur when the above is executed more than once per step)..</p>
+
+<p>so yea, what do you guys think is the best way to hold this data, and retrieve it etc? please provide example :( thanks</p>
+",<c++><arrays><maps><storage><vector>,1688094,2,856,3,2009-11-06 14:52:44
+Concurrency Issue plotting google maps GeoCoder request on Google Maps Widget,"<p>My program has essentially 3 steps:
+1) Query Geocoder object for some Coordinates and store them in a Collection
+2) Send the results to my main module for plotting on a map
+3) Plot them on a google map widget</p>
+
+<p>I have created a Requestor class for the purpose of handling the Geocoding -- this class has a getResults() function that returns an ArrayList of coordinates to my main module to be plotted on the map.<br>
+However, when I try to do all 3 steps within the confines of my onModuleLoad() method, I run into a concurrency problem and pull null results from the result set.  I have gotten this working with a set of 3 buttons (request, pull results, and plot) but would like to have them fired automatically when the module loads.<br>
+I suspect this has something to do with firing Events and having Handlers in the proper places; if that is the case please provide a concrete example as I have tried to find a good tutorial on EventHandlers with some difficulty.</p>
+",<java><javascript><gwt><google-maps><concurrency>,1780448,2,705,2,2009-11-22 23:45:30
+Rollback and Preview in a CMS,"<p>I am creating a CMS and am using serialize to handle publish and rollback, which seems to work fine.  Basically, The normal site tables are what gets displayed and anything not displayed is serialized in a separate table.  The problem however is in making the 'Preview' functions work.  </p>
+
+<p>Since the front end is created using normal SQL calls, and all the pre-published/rolled back data is in a separate table it would mean updating every sql statement with some fancy code to pull the version correct to the preview.  It will also get especially problematic with things like limits etc and would be a nightmare for the front end.</p>
+
+<p>The only other approach I can see is a separate database/table(s) for the preview copy, but many people may be using the preview function and I am loathe to create a duplicate database for every person using preview as it will very quickly get out of hand.</p>
+
+<p>Is there any way of doing this that will allow preview, and rollback preview, but will not require much from the code that displays the contents of the database and also avoid the problem of mass duplication?</p>
+",<php><mysql><content-management-system><theory><serialization>,1221600,0,544,3,2009-08-03 10:23:53
