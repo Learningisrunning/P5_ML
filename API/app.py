@@ -28,7 +28,7 @@ def predict(input: PredictionInput):
                     "Body": "Python, youtube et youtube et youutbe et zoom"
     }
     
-    input_data = pd.DataFrame([input.model_dump()])
+    input_data = pd.DataFrame(input)
 
     print("Données d'entrée:", input_data)
 
