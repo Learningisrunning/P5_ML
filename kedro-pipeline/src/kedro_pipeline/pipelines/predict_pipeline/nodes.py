@@ -101,9 +101,8 @@ def run_pipeline_data_cleaning(data, data_user) -> pd.DataFrame:
 
     df = data
     df = df[["Title", "Body"]]
-    df = df.iloc[:3]
 
-    df.loc[3] = [data_user.iloc[0]["Title"], data_user.iloc[0]["Body"]]
+    df.loc[len(df)] = [data_user.iloc[0]["Title"], data_user.iloc[0]["Body"]]
 
     df.reset_index(drop=True, inplace=True)
     setup_nltk()
