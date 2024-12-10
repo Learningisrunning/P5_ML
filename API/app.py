@@ -22,6 +22,12 @@ session = KedroSession.create(project_path=PROJECT_PATH)
 @app.post("/predict")
 def predict(input: PredictionInput):
     # Convertir les données d'entrée en DataFrame
+
+    input_data = {
+                    "Title": "Je suis un titre test",
+                    "Body": "Python, youtube et youtube et youutbe et zoom"
+    }
+    
     input_data = pd.DataFrame([input.model_dump()])
 
     print("Données d'entrée:", input_data)
