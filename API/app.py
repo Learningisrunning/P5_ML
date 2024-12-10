@@ -29,14 +29,12 @@ def predict(input: PredictionInput):
     try:
         catalog = session.load_context().catalog
         catalog.save("input_data", input_data) 
-        # Préparer les données d'entrée pour le pipeline
-        #pipeline_inputs = {"input_data": input_data}  # Assurez-vous que "input_data" est le bon nom dans votre pipeline
 
         # Exécuter le pipeline "predict_pipeline"
         result = session.run(pipeline_name="predict_pipeline")
 
         # Récupérer les prédictions
-        predictions = result.get("prediction")  # Remplacez "output_data" par le nom exact de votre sortie
+        predictions = result.get("prediction") 
         if predictions is not None:
             return {"predictions": predictions}
         else:

@@ -20,6 +20,6 @@ df_test:
 
 input_data:
   type: pandas.CSVDataset
-  filepath: "input.csv"
+  filepath: "P5_for_deploy/input.csv"
 
   
