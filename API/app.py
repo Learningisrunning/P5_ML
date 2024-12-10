@@ -5,7 +5,7 @@ from kedro.framework.session import KedroSession
 from kedro.framework.startup import bootstrap_project
 
 # Initialiser le projet Kedro
-PROJECT_PATH = "../pyproject.toml"
+PROJECT_PATH = "production/pyproject.toml"
 bootstrap_project(PROJECT_PATH)
 
 
