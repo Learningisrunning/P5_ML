@@ -11,8 +11,7 @@ Cette API utilise des modèles d'apprentissage automatique pour prédire des tag
 
 1. Clonez le dépôt :
    ```bash
-   git clone https://github.com/votre-utilisateur/stack-overflow-tag-predictor.git
-   cd stack-overflow-tag-predictor
+   git clone https://github.com/Learningisrunning/P5_ML.git
 
 2. installer les dépendances : 
     pip install -r requirements.txt
