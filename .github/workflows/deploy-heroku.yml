@@ -20,7 +20,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Set working directory
-        run: cd production/kedro-pipeline
+        run: cd kedro-pipeline
 
       - name: Set PYTHONPATH
         run: export PYTHONPATH=$PYTHONPATH:$(pwd)
