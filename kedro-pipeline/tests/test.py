@@ -17,7 +17,6 @@ from src.kedro_pipeline.pipelines.predict_pipeline.nodes import (
 
 # Test pour le prétraitement du texte
 def test_preprocess_text():
-    setup_nltk()
     nlp = setup_spacy()
     text = "Hello, this is a simple test for text preprocessing!"
     default_stopwords = ["this", "is", "a", "for"]
