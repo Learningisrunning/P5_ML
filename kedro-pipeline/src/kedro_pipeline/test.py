@@ -15,7 +15,7 @@ from pipelines.predict_pipeline.nodes import (
 
 )
 
-# Test pour le prétraitement du texte
+# Test pour le prétraitement du texte okok
 def test_preprocess_text():
     nlp = setup_spacy()
     text = "Hello, this is a simple test for text preprocessing!"
