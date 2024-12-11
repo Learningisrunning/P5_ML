@@ -4,11 +4,6 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.naive_bayes import MultinomialNB
 
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
-
-
 from src.kedro_pipeline.pipelines.predict_pipeline.nodes import (
     setup_nltk,
     setup_spacy,
