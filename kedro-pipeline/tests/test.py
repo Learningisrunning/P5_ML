@@ -13,6 +13,7 @@ from src.kedro_pipeline.pipelines.predict_pipeline.nodes import (
     BoWTransformer,
     pipeline_transformation_to_BoW,
     MultinomialNB_BoW_predict
+
 )
 
 # Test pour le prétraitement du texte

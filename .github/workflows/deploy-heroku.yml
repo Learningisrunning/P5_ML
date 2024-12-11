@@ -22,12 +22,8 @@ jobs:
       - name: Set working directory
         run: cd kedro-pipeline
 
-      - name: Set PYTHONPATH
-        run: export PYTHONPATH=$PYTHONPATH:$(pwd)/kedro-pipeline
-
-      - name: Run tests with coverage
-        run: |
-          pytest --cov=kedro_pipeline --cov-report=xml --junitxml=junit/test-results.xml
+      - name: Run tests
+        run: python production/kedro-pipeline/tests/test.py
       
       - uses: akhileshns/heroku-deploy@v3.13.15
         with:
