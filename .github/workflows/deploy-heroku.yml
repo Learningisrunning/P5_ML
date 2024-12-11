@@ -19,6 +19,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Download NLTK stopwords
+        run: |
+        python -c "import nltk; nltk.download('stopwords')"
+
       - name: Run tests
         run: python kedro-pipeline/src/kedro_pipeline/test.py
       
