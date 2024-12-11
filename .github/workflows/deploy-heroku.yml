@@ -23,7 +23,7 @@ jobs:
         run: cd kedro-pipeline
 
       - name: Set PYTHONPATH
-        run: export PYTHONPATH=$PYTHONPATH:$(pwd)
+        run: export PYTHONPATH=$PYTHONPATH:$(pwd)/kedro-pipeline
 
       - name: Run tests with coverage
         run: |
