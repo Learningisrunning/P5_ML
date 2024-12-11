@@ -101,8 +101,8 @@ def run_pipeline_data_cleaning(data, data_user) -> pd.DataFrame:
 
     df = data
     df = df[["Title", "Body"]]
-
-    df.loc[len(df)] = [data_user.iloc[0]["Title"], data_user.iloc[0]["Body"]]
+    df = df.iloc[:2]
+    df.loc[2] = [data_user.iloc[0]["Title"], data_user.iloc[0]["Body"]]
 
     df.reset_index(drop=True, inplace=True)
     setup_nltk()
@@ -164,7 +164,8 @@ def MultinomialNB_BoW_predict(model, df_test, mlb):
     # Prédiction
     y_pred = model.predict(X_test)
     y_pred = mlb.inverse_transform(y_pred)
-    y_pred = y_pred[3]
+    print(y_pred)
+    y_pred = y_pred[2]
     return y_pred
 
 #def accuracy(y_pred, y_test, mlb):
