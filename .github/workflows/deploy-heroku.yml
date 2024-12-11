@@ -21,7 +21,7 @@ jobs:
 
       - name: Download NLTK stopwords
         run: |
-        python -c "import nltk; nltk.download('stopwords')"
+          python -c "import nltk; nltk.download('stopwords')"
 
       - name: Run tests
         run: python kedro-pipeline/src/kedro_pipeline/test.py
