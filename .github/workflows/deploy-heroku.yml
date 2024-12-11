@@ -19,9 +19,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Set working directory
-        run: cd kedro-pipeline
-
       - name: Run tests
         run: python production/kedro-pipeline/tests/test.py
       
