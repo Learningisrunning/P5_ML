@@ -23,7 +23,7 @@ from spacy.cli import download
 ssl._create_default_https_context = ssl._create_unverified_context
 
 def setup_nltk():
-    nltk.data.path.append('/Users/tomdumerle/nltk_data')
+    nltk.data.path.append('production/nltk_data')
     nltk.download('stopwords')
 
 #def setup_spacy() -> spacy.language.Language:

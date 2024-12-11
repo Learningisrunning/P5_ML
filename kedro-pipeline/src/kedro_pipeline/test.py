@@ -5,7 +5,7 @@ from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.naive_bayes import MultinomialNB
 
 from pipelines.predict_pipeline.nodes import (
-    #setup_nltk,
+    setup_nltk,
     setup_spacy,
     preprocess_text,
     get_custom_stopwords,
@@ -18,7 +18,7 @@ from pipelines.predict_pipeline.nodes import (
 
 # Test pour le prétraitement du texte
 def test_preprocess_text():
-    #setup_nltk()
+    setup_nltk()
     nlp = setup_spacy()
     text = "Hello, this is a simple test for text preprocessing!"
     default_stopwords = ["this", "is", "a", "for"]
