@@ -4,7 +4,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.naive_bayes import MultinomialNB
 
-from src.kedro_pipeline.pipelines.predict_pipeline.nodes import (
+from pipelines.predict_pipeline.nodes import (
     setup_nltk,
     setup_spacy,
     preprocess_text,
