@@ -5,7 +5,8 @@ from kedro.framework.session import KedroSession
 from kedro.framework.startup import bootstrap_project
 
 # Initialiser le projet Kedro
-PROJECT_PATH = "/app/kedro-pipeline"
+#PROJECT_PATH = "/app/kedro-pipeline"
+PROJECT_PATH = "../kedro-pipeline"
 bootstrap_project(PROJECT_PATH)
 
 # Modèle pour les données d'entrée
@@ -22,15 +23,9 @@ session = KedroSession.create(project_path=PROJECT_PATH)
 @app.post("/predict")
 def predict(input: PredictionInput):
     # Convertir les données d'entrée en DataFrame
-
-    input_data = {
-                    "Title": "Je suis un titre test",
-                    "Body": "Python, youtube et youtube et youutbe et zoom"
-    }
-    
-    input_data = pd.DataFrame([input.dict()])
-
-    print("Données d'entrée:", input_data)
+     
+    input_data = pd.DataFrame([input.model_dump()])
+   
 
     try:
         catalog = session.load_context().catalog
