@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r production/kedro-pipeline/requirements.txt
+          pip install -r production/requirements.txt
 
       - name: Set working directory
         run: cd production/kedro-pipeline
